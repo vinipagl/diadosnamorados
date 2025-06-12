@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surpresa de Dia dos Namorados</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Tela de Perguntas */
+        .question-container {
+            background-color: rgba(255, 0, 100, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 100, 0.5);
+            max-width: 90%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff0064;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Tela de Surpresa (rolável) */
+        .surprise {
+            display: none;
+            width: 100%;
+        }
+
+        /* Primeira Seção (Texto + Fotos caindo) */
+        .love-section {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .love-text {
+            flex: 1;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+
+        .photo-rain {
+            flex: 1;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .falling-photo {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(255, 0, 100, 0.7);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Seções "Eu. Amo. Você..." */
+        .photo-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #ff0064;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 0, 100, 0.7);
+        }
+
+        .photo-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .photo-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(255, 0, 100, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Perguntas -->
+    <div id="question-screen">
+        <div class="question-container" id="name-question">
+            <h1>❤️ Dia dos Namorados ❤️</h1>
+            <p>Qual seu nome completo?</p>
+            <input type="text" id="user-name" placeholder="Seu nome aqui...">
+            <button onclick="checkName()">Continuar</button>
+        </div>
+
+        <div class="question-container" id="date-question" style="display: none;">
+            <p>Ok, se é você mesmo, qual nossa data de namoro?</p>
+            <input type="text" id="user-date" placeholder="DD/MM/AAAA">
+            <button onclick="checkDate()">Continuar</button>
+        </div>
+    </div>
+
+     <!-- (Tela de perguntas permanece igual) -->
+
+    <!-- Tela de Surpresa (rolável) -->
+    <div id="surprise" class="surprise">
+        <!-- Primeira Seção: Texto + Fotos caindo -->
+        <section class="love-section">
+            <div class="love-text">
+                <h2>Para o amor da minha vida...</h2>
+                <p>
+                    Olá, amor da minha vida.
+Dedico esse texto à você, e ele se trata do nosso relacionamento, desde o início.<br>
+
+Dia 20 de janeiro de 2024 começamos um ciclo, ciclo esse que vou fazer questão que dure para sempre. Começamos a namorar.
+ Desde então, vivemos muitas coisas até aqui, saímos, nos divertimos, tivemos momentos bons e ruins, quase terminamos umas 
+ 3 vezes, mas acho que todo casal tem altos e baixos... me perdoe,,  num briga comiguinho :( . 
+Nesses 1 ano e (quase) 5 meses, pude vislumbrar a melhor pessoa do mundo, mais bonita, mais responsável, mais fofa, mais esperta, mais neném do mundo, e tive momentos maravilhosos com ela, eu a amo muito demais da conta
+<br>
+Agora, vai ter uma sequência de fotos nossas com alguns de nossos momentos mais legais. Viver com você é legal. 
+ 💖<br>
+                </p>
+            </div>
+            <div class="photo-rain" id="photo-rain"></div>
+        </section>
+
+        <!-- Seção "Eu." -->
+        <section class="photo-section" id="eu-section">
+            <h2 class="section-title">Eu.</h2>
+            <div class="photo-grid">
+                <img src="1.jpeg" class="photo-item">
+                
+            </div>
+        </section>
+
+        <!-- Seção "Amo." -->
+        <section class="photo-section" id="amo-section">
+            <h2 class="section-title">Amo.</h2>
+            <div class="photo-grid">
+                <img src="4.jpeg" class="photo-item">
+                <img src="5.jpeg" class="photo-item">
+                <img src="6.jpeg" class="photo-item">
+            </div>
+        </section>
+
+        <!-- Seção "Você." -->
+        <section class="photo-section" id="voce-section">
+            <h2 class="section-title">Você.</h2>
+            <div class="photo-grid">
+                <img src="7.jpeg" class="photo-item">
+                <img src="8.jpeg" class="photo-item">
+                <img src="9.jpeg" class="photo-item">
+            </div>
+        </section>
+
+        <!-- Seção "Pra." -->
+        <section class="photo-section" id="pra-section">
+            <h2 class="section-title">Pra.</h2>
+            <div class="photo-grid">
+                <img src="10.jpeg" class="photo-item">
+                <img src="11.jpeg" class="photo-item">
+                <img src="12.jpeg" class="photo-item">
+            </div>
+        </section>
+
+        <!-- Seção "Sempre." -->
+        <section class="photo-section" id="sempre-section">
+            <h2 class="section-title">Sempre.</h2>
+            <div class="photo-grid">
+                <img src="13.jpeg" class="photo-item">
+                <img src="14.jpeg" class="photo-item">
+                <img src="15.jpeg" class="photo-item">
+            </div>
+        </section>
+
+        <!-- Seção "<3" -->
+        <section class="photo-section" id="coracao-section">
+            <h2 class="section-title">&lt;3</h2>
+            <div class="photo-grid">
+                <img src="16.jpeg" class="photo-item">
+                <img src="17.jpeg" class="photo-item">
+                <img src="18.jpeg" class="photo-item">
+            </div>
+        </section>
+
+        Enfim, hoje, comemoramos nosso segundo dia dos namorados, e é engraçado pensar o quanto evoluímos, quanto mudamos, 
+        e como estamos nos entendendo melhor a cada dia, como se nos tornarmos um só a cada dia que passa, pra sempre.
+
+Eu gosto muito de vc, meu amor, vc é a mulher mais gentil, adorável, sincera e especial que alguém poderia ter. Quero
+ estar com você pra todo o sempre. Sempre que saio da sua casa, sinto saudadezinha de você, porquê você é bebezinha neném e eu gosto de vc <3
+    </div>
+
+    <script>
+        // Respostas corretas
+        const correctName = "Julia Cristina Brito Celso";
+        const correctDate = "20/01/2024";
+
+        // Fotos para a "chuva" (adicione mais URLs)
+        const rainPhotos = [
+            "19.jpeg", "20.jpeg", "21.jpeg", 
+            "21.jpeg", "22.jpeg", "23.jpeg",
+            "1.jpeg","2.jpeg"
+        ];
+
+        // Cria fotos caindo em loop
+        function createRain() {
+            const container = document.getElementById("photo-rain");
+            setInterval(() => {
+                const photo = document.createElement("img");
+                photo.src = rainPhotos[Math.floor(Math.random() * rainPhotos.length)];
+                photo.className = "falling-photo";
+                photo.style.left = `${Math.random() * 80 + 10}%`;
+                photo.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                container.appendChild(photo);
+                
+                // Remove a foto após cair
+                setTimeout(() => photo.remove(), 10000);
+            }, 500);
+        }
+
+        // Verifica as respostas
+        function checkName() {
+            const userName = document.getElementById("user-name").value.trim();
+            if (userName.toLowerCase() === correctName.toLowerCase()) {
+                document.getElementById("name-question").style.display = "none";
+                document.getElementById("date-question").style.display = "block";
+            } else {
+                alert("Nome incorreto! Tente novamente.");
+            }
+        }
+
+        function checkDate() {
+            const userDate = document.getElementById("user-date").value.trim();
+            if (userDate === correctDate) {
+                document.getElementById("question-screen").style.display = "none";
+                document.getElementById("surprise").style.display = "block";
+                createRain(); // Inicia a chuva de fotos
+            } else {
+                alert("Data incorreta! Tente novamente.");
+            }
+        }
+    </script>
+</body>
+</html>
